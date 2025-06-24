@@ -2,9 +2,11 @@ services:
   app:
     build: .
     ports:
-      - "${PORT}:${PORT}"
+      - "3000:3000"
+    env_file: .env  # Carrega o arquivo .env
     environment:
-      - MONGO_CONNECTION:${MONGO_CONNECTION}
+      - PORT=${PORT:-3000}  # Fallback para 3000 se não definido
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongo:27017/apitest}
     depends_on:
       - mongo
     restart: unless-stopped

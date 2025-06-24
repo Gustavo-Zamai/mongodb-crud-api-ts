@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start:watch": "tsx --watch src/app.ts",
-    "build": "tsup src/app.ts --format esm,cjs --dts --minify",
+    "start:watch": "tsx --watch src/server.ts",
+    "build": "tsup src/server.ts --format esm,cjs --dts --minify",
     "prod": "node dist/index.js",
     "test": "vitest",
     "test:watch": "vitest watch",
@@ -19,6 +19,7 @@
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.5.0",
     "ejs": "^3.1.8",
     "express": "^4.21.2",
     "http-errors": "~1.6.3",
