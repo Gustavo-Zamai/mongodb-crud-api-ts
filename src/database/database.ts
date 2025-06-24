@@ -1,9 +1,7 @@
 import mongoose, { ConnectOptions } from 'mongoose';
 
-
-
 // Conexão com o MongoDB
-const connection = mongoose.connect(process.env.MONGO_CONNECTION || 'mongodb://mongo:27017/apitest', {
+const connection = mongoose.connect(process.env.MONGO_URI || 'mongodb://mongo:27017/apitest', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 } as ConnectOptions);

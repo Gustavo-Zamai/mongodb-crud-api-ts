@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import { Customer, ICustomer } from '../database/database';
+import { Customer } from '../database/database';
 
 const router = Router();
 
@@ -24,9 +24,9 @@ router.get('/customers', async (req: Request, res: Response) => {
   }
 });
 
-router.get('/customers/:id', async (req: Request<{ id: string }>, res: Response) => {
+router.get('/customers/:id', async (req: Request<{ _id: string }>, res: Response) => {
   try {
-    const customer = await Customer.findById(req.params.id).lean().exec();
+    const customer = await Customer.findById(req.params._id).lean().exec();
     customer ? res.json(customer) : res.status(404).json({ message: 'Not found' });
   } catch (error) {
     handleError(res, error);
@@ -45,10 +45,10 @@ router.post('/customers', async (req: Request<{}, {}, CustomerRequestBody>, res:
 
 router.put(
   '/customers/:id',
-  async (req: Request<{ id: string }, {}, CustomerRequestBody>, res: Response) => {
+  async (req: Request<{ _id: string }, {}, CustomerRequestBody>, res: Response) => {
     try {
       const options = { new: true, runValidators: true };
-      const updatedCustomer = await Customer.findByIdAndUpdate(req.params.id, req.body, options)
+      const updatedCustomer = await Customer.findByIdAndUpdate(req.params._id, req.body, options)
         .lean()
         .exec();
 
@@ -59,9 +59,9 @@ router.put(
   },
 );
 
-router.delete('/customers/:id', async (req: Request<{ id: string }>, res: Response) => {
+router.delete('/customers/:id', async (req: Request<{ _id: string }>, res: Response) => {
   try {
-    const deletedCustomer = await Customer.findByIdAndDelete(req.params.id).lean().exec();
+    const deletedCustomer = await Customer.findByIdAndDelete(req.params._id).lean().exec();
     deletedCustomer ? res.json({ success: true }) : res.status(404).json({ message: 'Not found' });
   } catch (error) {
     handleError(res, error);
